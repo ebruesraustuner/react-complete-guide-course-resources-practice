@@ -10,20 +10,20 @@ export default function ProjectDetail({selected, handleClearTasks, isAddingNew, 
        {selected ? ( 
             <div className="p-4 m-2 w-2/3">
                 <section id="project-detail">
-                    <div>
+                    <div className="flex items-center justify-between">
                         <h1 className="my-8 text-center text-3xl font-bold">{selected.title}</h1>
-                        <p>{selected.date}</p>
                         <Button onClick={handleDeleteProject}>Delete</Button>
                     </div>
+                    <p className="mb-4 text-stone-400">{selected.date}</p>
                     <div>
-                        <span>
+                        <span className="text-stone-600 whitespace-pre-wrap">
                             {selected.detail}
                         </span>
                     </div>
                 </section>
                 <hr />
                 <section id="project-tasks">
-                    <Tasks selected={selected.tasks} handleClearTasks={handleClearTasks} onAdd={handleAddTask}/>
+                    <Tasks selected={selected.Tasks} handleClearTasks={handleClearTasks} onAdd={handleAddTask}/>
                 </section>
                 
 

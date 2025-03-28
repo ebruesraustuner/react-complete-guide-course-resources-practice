@@ -41,16 +41,15 @@ function App() {
     }]
 
 
-  const [projectList, setProjectList] = useState({Projects: initialProjectList, Tasks: initialTaskList});
-  console.log("🚀 ~ App ~ projectList:", projectList)
+  const [projectList, setProjectList] = useState({Projects: initialProjectList, Tasks: initialTaskList, selectedProjectId: null});
   const [selected, setSelected] = useState(null);
+  console.log("🚀 ~ App ~ selected:", selected)
   const [isAddingNewProject, setNewProject] = useState(false)
 
 
   function onSelectedProject(id) {
-    console.log("🚀 ~ onSelectedProject ~ id:", id)
     const selected = projectList.Projects.find((project) => project.id === id);
-    setSelected({...selected, tasks: projectList.Tasks.filter(task => task.projectId === id)})
+    setSelected({...selected, Tasks: projectList.Tasks.filter(task => task.projectId === id)})
   }
 
   function handleClear(){
@@ -97,11 +96,18 @@ function App() {
 
   function onAddTask(task) {
     setProjectList(prevs => {
+      const newTask = {
+        taskId: Math.random(), 
+        detail:task, 
+        projectId: selected.id
+      }
+
       return {
         ...prevs,
-        Tasks: [...prevs.Tasks, {taskId: Math.random(), detail:task, projectId: selected.id}]
+        Tasks: [newTask, ...prevs.Tasks]
       }
     })
+
   }
 
   function onCancelProject(){
