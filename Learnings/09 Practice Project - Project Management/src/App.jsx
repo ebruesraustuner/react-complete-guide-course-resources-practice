@@ -43,8 +43,7 @@ function App() {
 
   const [projectList, setProjectList] = useState({Projects: initialProjectList, Tasks: initialTaskList, selectedProjectId: null});
   const [selected, setSelected] = useState(null);
-  console.log("🚀 ~ App ~ selected:", selected)
-  const [isAddingNewProject, setNewProject] = useState(false)
+  const [isAddingNewProject, setNewProject] = useState(false);
 
 
   function onSelectedProject(id) {
@@ -102,12 +101,19 @@ function App() {
         projectId: selected.id
       }
 
+      setSelected((prevsSelecteds) => {
+        return {
+          ...prevsSelecteds,
+          Tasks: [ ...prevs.Tasks.filter(task => task.projectId === selected.id), newTask]
+        }
+      })
+
+
       return {
         ...prevs,
-        Tasks: [newTask, ...prevs.Tasks]
+        Tasks: [ ...prevs.Tasks, newTask]
       }
     })
-
   }
 
   function onCancelProject(){
