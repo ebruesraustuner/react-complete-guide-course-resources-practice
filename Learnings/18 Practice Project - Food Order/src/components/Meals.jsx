@@ -11,19 +11,36 @@ import { currencyFormatter } from '../util/formatting.js';
 export function Meals(){
     const cartCtx = useContext(CartContext);
 
-    const { isFetching:isLoading, error, fetchedData:meals } = useFetch(fetchMeals, [], true)
+    const { isFetching:isLoading, error, fetchedData:meals } = useFetch(fetchMeals, [], true);
+    const [isSuccesAdd, setSucAdd] = useState(false);
     console.log("🚀 ~ Meals ~ error:", error)
     if (error) {
         return <Errorpage title="An error occurred!" message={error.message}/>
     }
     function onAddingCart(meal){
         console.log("🚀 ~ onAddingCart ~ meal:", meal)
-        cartCtx.addItem(meal);
+        try {
+            cartCtx.addItem(meal);
+        } catch (error) {
+            
+        } finally {
+            setSucAdd(true);
+            setTimeout(() => {
+                setSucAdd(false);
+            }, 5000);
+            
+        }
+        
     }
 
 
     return (
         <section>
+            {isSuccesAdd && (
+                <div className="dropDialog">
+                    <h3>karta ekleme gerçekleşti</h3>
+                </div>
+            )}
             {isLoading && 'Yemekler Yükleniyor'}
             {!isLoading && meals.length === 0  && 'üzgünüz bir şeyler ters gitti'}
             {!isLoading && meals.length > 0 && (

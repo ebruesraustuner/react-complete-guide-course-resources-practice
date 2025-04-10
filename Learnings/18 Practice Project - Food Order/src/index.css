@@ -249,6 +249,16 @@ h1 {
   background-color: rgba(0, 0, 0, 0.55);
 }
 
+.dropDialog {
+  position: absolute;
+  left:24px; 
+  bottom: 24px; background: #ffc404;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  color: black
+}
+
 @keyframes fade-slide-up {
   from {
     opacity: 0;
